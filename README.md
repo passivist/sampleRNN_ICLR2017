@@ -1,4 +1,4 @@
-# SampleRNN (ZVK fork)
+# SampleRNN (forked from ZVK fork)
 
 Code accompanying the paper [SampleRNN: An Unconditional End-to-End Neural Audio Generation Model](https://openreview.net/forum?id=SkxKPDv5xl). Samples are available [here](https://soundcloud.com/samplernn/sets).
 
@@ -10,13 +10,16 @@ Code accompanying the paper [SampleRNN: An Unconditional End-to-End Neural Audio
 - any processed datasets can be loaded into the two-tier network via arguments
 - sampling is picked from distribution (not max)
 - any number of RNN layers is now possible (until you run out of memory)
+- python 3 support
 
 ## Dependencies
 - cuDNN 5105
-- Python 2.7.12
+- Python 3.8.5
 - Numpy 1.11.1
-- Theano 0.9.0rc3 or 1.0
+- Theano 1.0.5+
 - Lasagne 0.2.dev1
+- matplotlib
+- libsndfile
 
 ## Datasets
 To preprocess audio for a 32k new experiment, place your audio here:
