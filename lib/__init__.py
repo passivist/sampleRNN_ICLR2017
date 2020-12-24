@@ -1,4 +1,4 @@
-import ops
+#import ops
 #import lasagne
 #from theano.compile.nanguardmode import NanGuardMode
 
@@ -11,8 +11,7 @@ import theano
 import theano.tensor as T
 import theano.gof
 
-import cPickle as pickle
-#import pickle
+import pickle
 import warnings
 import sys, os, errno, glob
 
@@ -90,7 +89,7 @@ def floatX(x):
     elif theano.config.floatX == 'float32':
         return numpy.float32(x)
     else: # Theano's default float type is float64
-        print "Warning: lib.floatX using float64"
+        print("Warning: lib.floatX using float64")
         return numpy.float64(x)
 
 def save_params(path):
@@ -117,9 +116,10 @@ def ensure_dir(dirname):
     """
     Ensure that a named directory exists; if it does not, attempt to create it.
     """
+
     try:
         os.makedirs(dirname)
-    except OSError, e:
+    except OSError as e:
         if e.errno != errno.EEXIST:
             raise
 
@@ -163,14 +163,14 @@ def print_model_settings(locals_var, path=None, sys_arg=False):
             log += str(sys.argv)
             log += "\n"
         except:
-            print "Something went wrong during sys_arg logging. Continue anyway!"
+            print ("Something went wrong during sys_arg logging. Continue anyway!")
 
     log += "\nModel settings:"
     all_vars = [(k,v) for (k,v) in locals_var.items() if (k.isupper() and k != 'T')]
     all_vars = sorted(all_vars, key=lambda x: x[0])
     for var_name, var_value in all_vars:
         log += ("\n\t%-20s %s" % (var_name, var_value))
-    print log
+    print (log)
     if path is not None:
         ensure_dir(path)
         # Don't override, just append if by mistake there is something in the file.
@@ -229,7 +229,7 @@ def print_params_info(params, path=None):
     log += "\nTotal parameter count for this cost:\n\t{0}".format(
         locale.format("%d", total_param_count, grouping=True)
     )
-    print log
+    print (log)
 
     if path is not None:
         ensure_dir(path)
@@ -288,23 +288,23 @@ def resumable(path,
     res_path = os.path.join(path, 'params', 'params_e{}_i{}*.pkl')
     for reverse_idx in range(-1, -len(log[epoch_key])-1, -1):
         ep, it = log[epoch_key][reverse_idx], log[iter_key][reverse_idx]
-        print "> Params file for epoch {} iter {}".format(ep, it),
+        print ("> Params file for epoch {} iter {}".format(ep, it))
         last_path = glob.glob(res_path.format(ep, it))
         if len(last_path) == 1:
             res_path = last_path[0]
             param_found = True
-            print "found."
+            print ("found.")
             break
         elif len(last_path) == 0:
-            print "[NOT FOUND]. FALLING BACK TO..."
+            print ("[NOT FOUND]. FALLING BACK TO...")
         else:  # > 1
             # choose one, warning, rare
-            print "[multiple version found]:"
+            print ("[multiple version found]:")
             for l_path in last_path:
-                print l_path
+                print (l_path)
             res_path = last_path[0]
             param_found = True
-            print "Arbitrarily choosing first:\n\t{}".format(res_path)
+            print ("Arbitrarily choosing first:\n\t{}".format(res_path))
 
     assert 'reverse_idx' in locals(), 'Empty train_log???\n{}'.format(log)
     # Finishing for loop with no success
@@ -407,7 +407,7 @@ def tv(var):
     try:
         return var.tag.test_value
     except AttributeError:
-        print "NONE, test_value has not been set."
+        print ("NONE, test_value has not been set.")
         import ipdb; ipdb.set_trace()
 
     ## Rather than LBYL (look before you leap)
@@ -435,7 +435,7 @@ def _is_symbolic(v):
     """
     symbolic = False
     v = list(v)
-    for _container, _iter in [(v, xrange(len(v)))]:
+    for _container, _iter in [(v, range(len(v)))]:
         for _k in _iter:
             _v = _container[_k]
             if isinstance(_v, theano.gof.Variable):

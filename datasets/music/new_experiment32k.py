@@ -1,5 +1,5 @@
 import numpy as np
-import sys, os, subprocess, random, time, glob
+import sys, os, subprocess, random, time, glob, pysndfile
 #import scikits.audiolab
 
 PWD = os.getcwd()
@@ -46,7 +46,7 @@ for i in range(int((length//8)*3)-1):
     os.system('ffmpeg -ss {} -t 8 -i {}/preprocess_all_audio.wav -ac 1 -ab 16k -ar 16000 {}/p{}.flac'.format(time, OUTPUT_DIR, OUTPUT_DIR, i))
 '''
 size = 8
-num = 3200
+num = 32
 for i in range(0, num):
     time = i * ((length-size)/float(num))
     os.system('ffmpeg -ss {} -t 8 -i {}/preprocess_all_audio.wav -ac 1 -ab 16k -ar 32000 {}/p{}.flac'.format(time, OUTPUT_DIR, OUTPUT_DIR, i))
@@ -73,7 +73,9 @@ def __fixed_shuffle(inp_list):
 paths = sorted(glob.glob(OUTPUT_DIR+"/*.flac"))
 __fixed_shuffle(paths)
 
-arr = [(scikits.audiolab.flacread(p)[0]).astype('float16') for p in paths]
+# scikits.audiolab is deprecated: replace with something else
+#arr = [(scikits.audiolab.flacread(p)[0]).astype('float16') for p in paths]
+arr = [pysndfile.sndio.read(p, None, 0) for p in paths]
 np_arr = np.array(arr)
 # 88/6/6 split
 length = len(np_arr)
