@@ -42,6 +42,7 @@ import lasagne
 import scipy.io.wavfile
 
 import lib
+from lib import ops
 import functools
 
 LEARNING_RATE = 0.001

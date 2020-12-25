@@ -19,6 +19,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
+import functools
+
 # TODO: Grouping is not working on cluster! :-?
 # Set a locale first or you won't get grouping at all
 locale.setlocale(locale.LC_ALL, '')
@@ -224,7 +226,7 @@ def print_params_info(params, path=None):
     log = "\nParams for cost:"
     for param, value, shape in zip(params, values, shapes):
         log += ("\n\t%-20s %s" % (shape, param.name))
-        total_param_count += reduce(multiply_all, shape)
+        total_param_count += functools.reduce(multiply_all, shape)
 
     log += "\nTotal parameter count for this cost:\n\t{0}".format(
         locale.format("%d", total_param_count, grouping=True)

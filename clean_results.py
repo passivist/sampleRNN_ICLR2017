@@ -16,24 +16,24 @@ for e in experiments:
         for file in files:
             for hit in hit_list:
                 if file.startswith(hit):
-                    print file
+                    print(file)
                     unused_files.append(os.path.join(root, file))
 def prompt_delete(num_prompts):
     num_prompts -= 1
     if num_prompts >= 0:
         prompt = input("Do you want to delete these "+str(len(unused_files))+" files? ['Y'/'n']")
         if prompt == "Y" or prompt == "yes":
-            print 'removing old epochs...'
+            print('removing old epochs...')
             for uf in unused_files:
                 os.remove(uf)
         elif prompt == "n" or prompt == "no":
-            print "clean aborted: 0 files deleted"
+            print("clean aborted: 0 files deleted")
         else:
-            print "warning:", prompt, "is an unknown command"
+            print("warning:", prompt, "is an unknown command")
             prompt_delete(num_prompts)
     else:
-        print "0 files deleted: Good-bye"
+        print("0 files deleted: Good-bye")
 if len(unused_files) > 0:
     prompt_delete(3)
 else:
-    print 'found 0 files to clean: Good-bye'
+    print('found 0 files to clean: Good-bye')
