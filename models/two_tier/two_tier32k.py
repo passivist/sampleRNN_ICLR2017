@@ -581,7 +581,7 @@ if RESUME:
     # Consumes this much iters to get to the last point in training data.
     consume_time = time()
     for i in range(iters_to_consume):
-        tr_feeder.next()
+        next(tr_feeder)
     consume_time = time() - consume_time
     print ("Train data ready in {:.2f}secs after consuming {} minibatches.".\
             format(consume_time, iters_to_consume))
@@ -596,14 +596,15 @@ while True:
         total_iters += 1
     try:
         # Take as many mini-batches as possible from train set
-        mini_batch = tr_feeder.next()
+        mini_batch = next(tr_feeder)
+        print("here")
     except StopIteration:
         # Mini-batches are finished. Load it again.
         # Basically, one epoch.
         tr_feeder = load_data(train_feeder)
 
         # and start taking new mini-batches again.
-        mini_batch = tr_feeder.next()
+        mini_batch = next(tr_feeder)
         epoch += 1
         end_of_batch = True
         print ("[Another epoch]", seqs, reset, mask = mini_batch)

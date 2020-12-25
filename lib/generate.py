@@ -13,7 +13,7 @@ name = glob.glob("../results*/" + tag + "/args.pkl")[0]
 params = pickle.load(open(name, "r"))
 print params
 info = {}
-for p in xrange(1,len(params),2):
+for p in range(1,len(params),2):
     if p+1 < len(params):
         info[params[p][2:]] = params[p+1]
 print info
@@ -98,7 +98,7 @@ def generate_and_save_samples():
     h0 = numpy.concatenate((h0, fixed_rand_h0), axis=0)
     frame_level_outputs = None
 
-    for t in xrange(FRAME_SIZE, LENGTH):
+    for t in range(FRAME_SIZE, LENGTH):
 
         if t % FRAME_SIZE == 0:
             frame_level_outputs, h0 = frame_level_generate_fn(
@@ -118,7 +118,7 @@ def generate_and_save_samples():
     log = log.format(N_SEQS, N_SECS, total_time)
     print log,
 
-    for i in xrange(N_SEQS):
+    for i in range(N_SEQS):
         samp = samples[i]
         if Q_TYPE == 'mu-law':
             from datasets.dataset import mu2linear

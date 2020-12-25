@@ -1,4 +1,3 @@
-#import ops
 #import lasagne
 #from theano.compile.nanguardmode import NanGuardMode
 
