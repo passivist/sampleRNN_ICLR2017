@@ -607,7 +607,9 @@ while True:
         mini_batch = next(tr_feeder)
         epoch += 1
         end_of_batch = True
-        print ("[Another epoch]", seqs, reset, mask = mini_batch)
+
+    seqs, reset, mask = mini_batch
+    print ("[Another epoch]", seqs, reset, mask)
 
     start_time = time()
     cost, h0 = train_fn(seqs, h0, reset, mask)
@@ -630,10 +632,13 @@ while True:
         test_time = 0.
         # Only when the validation cost is improved get the cost for test set.
         if valid_cost < lowest_valid_cost:
+
             lowest_valid_cost = valid_cost
+
             print ("\n>>> Best validation cost of {} reached. Testing!"\
-                                .format(valid_cost),
-                        test_cost, test_time = monitor(test_feeder))
+                                .format(valid_cost))
+
+            test_cost, test_time = monitor(test_feeder)
             print ("Done!")
             # Report last one which is the lowest on validation set:
             print (">>> test cost:{}\ttotal time:{}".format(test_cost, test_time))
