@@ -95,7 +95,7 @@ def floatX(x):
 
 def save_params(path):
     param_vals = {}
-    for name, param in _params.iteritems():
+    for name, param in _params.items():
         param_vals[name] = param.get_value()
 
     with open(path, 'wb') as f:
@@ -105,7 +105,7 @@ def load_params(path):
     with open(path, 'rb') as f:
         param_vals = pickle.load(f)
 
-    for name, val in param_vals.iteritems():
+    for name, val in param_vals.items():
         _params[name].set_value(val)
 
 def clear_all_params():
