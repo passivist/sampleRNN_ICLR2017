@@ -625,7 +625,9 @@ while True:
         (TRAIN_MODE=='iters-time' and total_iters-last_print_iters >= PRINT_ITERS) or \
         end_of_batch:
         # 0. Validation
-        print ("\nValidation!", valid_cost, valid_time = monitor(valid_feeder))
+
+        valid_cost, valid_time = monitor(valid_feeder)
+        print ("\nValidation!", valid_cost, valid_time)
         print ("Done!")
 
         # 1. Test
@@ -696,7 +698,7 @@ while True:
                          'wall clock time' : time()-exp_start}
         lib.save_training_info(training_info, FOLDER_PREFIX)
         print ("Train info saved!")
-        
+
         y_axis_strs = [train_nll_str, valid_nll_str, test_nll_str]
         lib.plot_traing_info(iter_str, y_axis_strs, FOLDER_PREFIX)
         print ("And plotted!")
