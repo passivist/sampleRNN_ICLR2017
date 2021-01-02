@@ -632,6 +632,7 @@ while True:
 
         # 1. Test
         test_time = 0.
+        test_cost = 0.
         # Only when the validation cost is improved get the cost for test set.
         if valid_cost < lowest_valid_cost:
 
