@@ -174,9 +174,11 @@ def __music_feed_epoch(files,
         mask = np.ones(batch.shape, dtype='float32')
 
         for i, data in enumerate(bch):
-            #data, fs, enc = scikits.audiolab.flacread(path)
+            # data, fs, enc = scikits.audiolab.flacread(path)
             # data is float16 from reading the npy file
-            batch[i] = np.pad(data[:batch_seq_len], (0, batch_seq_len))
+
+            batch[i] = data[0][:batch_seq_len]
+
             # This shouldn't change anything. All the flac files for Music
             # are the same length and the mask should be 1 every where.
             # mask[i, len(data):] = np.float32(0)
