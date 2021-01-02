@@ -597,7 +597,6 @@ while True:
     try:
         # Take as many mini-batches as possible from train set
         mini_batch = next(tr_feeder)
-        print("here")
     except StopIteration:
         # Mini-batches are finished. Load it again.
         # Basically, one epoch.
